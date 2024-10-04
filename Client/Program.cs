@@ -18,10 +18,14 @@ class Client
             byte[] buffer = new byte[256];
             int bytesRead;
 
-            while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
+            while (true)
             {
-                string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                Console.WriteLine($"Получено сообщение: {message}");
+                bytesRead = stream.Read(buffer, 0, buffer.Length);
+                if (bytesRead > 0)
+                {
+                    string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    Console.WriteLine($"Получено сообщение: {message}");
+                }
             }
 
             stream.Close();
